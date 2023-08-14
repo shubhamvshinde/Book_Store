@@ -27,21 +27,33 @@ function Loginpage() {
 
         if(!username.trim()){
             newErrors.username='Username is Required';
+            document.getElementById("username").style.border="2px solid red";
             isValid = false;
+        }else if(username){
+            document.getElementById("username").style.border="2px solid black";
         }
         if(!email.trim()){
             newErrors.email='Email is Required';
+            document.getElementById("email").style.border="2px solid red";
             isValid = false;
         }else if(!/\S+@\S+\.\S+/.test(email)){
             newErrors.email=' Invalid email address';
+            document.getElementById("email").style.border="2px solid red";
             isValid = false;
+        }else if(email){
+            document.getElementById("email").style.border="2px solid black";
         }
         if(!phonenumber.trim()){
             newErrors.phonenumber='Phone Number is Required';
+            document.getElementById("phonenumber").style.border="2px solid red";
             isValid = false;
         }else if(!/^[0-9]{10}$/.test(phonenumber)){
             newErrors.phonenumber='Invalid Phone number';
+            document.getElementById("phonenumber").style.border="2px solid red";
             isValid = false;
+        }
+        else if(phonenumber){
+            document.getElementById('phonenumber').style.border="2px solid black";
         }
         setErrors(newErrors);
         return isValid;
@@ -55,25 +67,24 @@ function Loginpage() {
             setIsLoggedIn(true);
         }
     }
-    
-  const [data, setData] = useState([])
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/api/books');
-        setData(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
+    const [data, setData] = useState([])
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('http://localhost:3000/api/books');
+          setData(response.data);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
       }
-    }
-    fetchData();
-  }, []);
-
-//   console.log("datataattatat", data)
+      fetchData();
+    }, []);
+  
+  //   console.log("datataattatat", data)
   return (
     <>
     {isLoggedIn ? (
-        <Bookstore sendData={data}/>
+        <Bookstore sendData={data} />
       )
       :
       (
